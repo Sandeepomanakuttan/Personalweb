@@ -35,37 +35,39 @@ function tellvalidate(){
 
     function Phonevalidate(){
         var no= $('#phNumber').val();
-        var phPattern= /^\d{10}$/
+        var phPattern= /^[0-9]+$/
         if(no==""){
         $('#phfield').html("Enter Phone number");
             return false
         }else if(no.match(phPattern)){
-        $('#phfield').html("");
+            if(no.length<10){
+                $('#phfield').html("Enter 10 digit Phone number");
+                return false
+            } else{
+          $('#phfield').html("");
             return true
-        }else if(no.length<10){
-            $('#phfield').html("Enter 10 digit Phone number");
-            return false
-        } 
+            }
+        }
         else{
         $('#phfield').html("Enter Correct Phone number");
             return false
         }
     }
-
-  function emailvalidate(){
-    var email = $('#email').val();
-    var pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-    if(email==""){
-        $('#emailfield').html("Enter the Email");
-            return false
-        }else if(email.match(pattern)){
-        $('#emailfield').html("");
-            return true
-        }else{
-        $('#emailfield').html("Enter Correct Email");
-            return false
+    
+    function emailvalidate(){
+        var email = $('#email').val();
+        var pattern = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/
+        if(email==""){
+            $('#emailfield').html("Enter the Email");
+                return false
+            }else if(email.match(pattern)){
+            $('#emailfield').html("");
+                return true
+            }else{
+            $('#emailfield').html("Enter Correct Email");
+                return false
+            }
         }
-    }
 
 function namevalidate(){
     var name = $('#Name').val();
@@ -75,9 +77,16 @@ function namevalidate(){
         $('#namefield').html("Enter the Name");
             return false
         }else if(name.match(latterpat)){
+            if(name.length<3){
+            
+                $('#namefield').html("Enter atleast Three latter");
+                    return false
+                }else{
         $('#namefield').html("");
             return true
-        }else{
+                }
+        }
+        else{
         $('#namefield').html("Enter Correct Name");
             return false
         }
@@ -98,3 +107,33 @@ function lastnamevalidate(){
         }
 
     }
+
+    function testname(event) {
+        var value = String.fromCharCode(event.which);
+        var pattern = new RegExp(/^[A-Za-z]+$/);
+        return pattern.test(value);
+        
+     }
+     $('#Name').bind('keypress', testname);
+     $('#lName').bind('keypress', testname);
+
+
+
+     
+    
+     function testPh(event) {
+        var value = String.fromCharCode(event.which);
+        var pattern = new RegExp(/^[0-9]+$/);
+        return pattern.test(value);
+     }
+     
+     $('#phNumber').bind('keypress', testPh);
+
+     function testemail(event) {
+        var value = String.fromCharCode(event.which);
+        var pattern = new RegExp(/^[a-z@.\.w{2,3}]+$/);
+        return pattern.test(value);
+     }
+     
+     $('#email').bind('keypress', testemail);
+
